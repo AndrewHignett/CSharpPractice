@@ -28,10 +28,10 @@ namespace LineSmoothing
             
             //using this approach our does not have to be of a fixed size, we can find dimensions and store them and then use that for scaling appropraitely
             //currently this is fixed
-            lineImage aLineImage = new lineImage(x, y, img);
+            LineImage aLineImage = new LineImage(x, y, img);
             //Is there any beefit to having this as a class? - it certainly keeps code here clean, and allows us to have functions that edit the object to
             //be functions part of that object's class
-            aLineImage.erode();
+            Line thisLine = new Line(aLineImage.LineImageBitmap);
         }
     }
 }
