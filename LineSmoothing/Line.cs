@@ -5,13 +5,13 @@ using System.Drawing;
 public class Line
 {
     public int[,] line;
-   
+
 
     //need a constructure here
     public Line(Bitmap lineImage)
-	{
+    {
         this.line = Erode(lineImage);
-	}
+    }
 
     //intention here is to reduce the line to it's midmost parts, as this line will likely be more than 1 pixel wide
     //This will modify the bitmap to be this thin line (or number of lines) on the background
@@ -23,7 +23,7 @@ public class Line
         //for multiple lines, we will need to count colours first and then use this when checking colours, limit this to 5
         //these are temporarily predefined for functionality on black and white
         Color tempColour = Color.FromArgb(255, 0, 0, 0);
-        Color [] colours = { tempColour };
+        Color[] colours = { tempColour };
         int colourCount = 1;
         //Need to store central points
         for (int i = 0; i < 1024; i++)
@@ -45,9 +45,15 @@ public class Line
             for (int colourInc = 0; colourInc < colourCount; colourInc++)
             {
                 //store the midpoint
-                tempLine[i, colourInc] = 1023 - (minMax[colourInc, 0] + (minMax[colourInc, 1] - minMax[colourInc, 0])/2);
+                tempLine[i, colourInc] = 1023 - (minMax[colourInc, 0] + (minMax[colourInc, 1] - minMax[colourInc, 0]) / 2);
             }
         }
         return line;
+    }
+
+    //Butterworth filter for smoothing the line, this will be applied to the line as defined in order to smooth it
+    public void butterworthFilter()
+    {
+
     }
 }
