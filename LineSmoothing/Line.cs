@@ -10,7 +10,8 @@ public class Line
     //need a constructure here
     public Line(Bitmap lineImage)
     {
-        this.line = Erode(lineImage);
+        int[,] thisLine = Erode(lineImage);
+        this.line = LaplaceSmoothing(thisLine);
     }
 
     //intention here is to reduce the line to it's midmost parts, as this line will likely be more than 1 pixel wide
@@ -48,12 +49,44 @@ public class Line
                 tempLine[i, colourInc] = 1023 - (minMax[colourInc, 0] + (minMax[colourInc, 1] - minMax[colourInc, 0]) / 2);
             }
         }
-        return line;
+        return tempLine;
     }
 
     //Butterworth filter for smoothing the line, this will be applied to the line as defined in order to smooth it
-    public void butterworthFilter()
+    public void ButterworthFilter()
     {
 
+    }
+
+    //Laplacian smoothing of the 2D coordinates
+    private int[,] LaplaceSmoothing(int[,] thisLine)
+    {
+        int iterations = 5;
+        //colourCount will need to be updated to a max of 5
+        int colourCount = 1;
+        //Trying without copying any arrays as much
+        int[] tripleTemp = new int[3];
+        //Use a same size array to store smoothed values
+        int[,] thisLineCopy = new int[1024, 5];
+        //tempoarary array to store
+        for (int j = 0; j < iterations; j++) {
+            for (int colour = 0; colour < colourCount; colour++)
+            {
+                for (int i = 1; i < 1023; i++)
+                {
+                    tripleTemp[0] = thisLine[i - 1, colour];
+                    tripleTemp[1] = thisLine[i, colour];
+                    tripleTemp[2] = thisLine[i + 1, colour];
+                    //Copy to the temporaryArray
+                    thisLineCopy[i, colour] = tripleTemp[1] + (tripleTemp[0] + tripleTemp[2] - 2 * tripleTemp[1]) / 2;
+                }
+                //Update the currentLine to the values from the tempoary array
+                for (int copyIter = 1; copyIter < 1023; copyIter++)
+                {
+                    thisLine[copyIter, colour] = thisLineCopy[copyIter, colour];
+                }
+            }
+        }
+        return thisLine;
     }
 }

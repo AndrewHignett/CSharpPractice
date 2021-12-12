@@ -31,6 +31,11 @@ namespace LineSmoothing
             LineImage aLineImage = new LineImage(x, y, img);
             //Is there any beefit to having this as a class? - it certainly keeps code here clean, and allows us to have functions that edit the object to
             //be functions part of that object's class
+
+            //The line image should be made up of several line objects, they can be smoothed seperately
+            //We should start by taking the image and an image is made up of a non-descript number of lines, defined by the colour count, which should be a
+            //part of the LineImage class
+            //ColourCount is added to the LineImage class - but this doesn't behave correctly unless we have a fixed colour
             Line thisLine = new Line(aLineImage.LineImageBitmap);
         }
     }
