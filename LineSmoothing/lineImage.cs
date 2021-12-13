@@ -14,17 +14,26 @@ class LineImage
     public Bitmap lineImageBitmap;
     //number of lines, colour count
     public int colourCount;
+    public HashSet<Color> uniqueColours;
+    //list of lines
+    public List<Line> lineList;
 
     public LineImage(int xDimension, int yDimension, Bitmap imageBitmap)
     {
         this.x = xDimension;
         this.y = yDimension;
         this.lineImageBitmap = ScaleImage(imageBitmap);
-        this.colourCount = DetectColours(imageBitmap);
+        this.uniqueColours = DetectColours(imageBitmap);
+        this.colourCount = uniqueColours.Count;
         Console.WriteLine(colourCount);
-        while (true)
+        this.lineList = new List<Line>();
+        HashSet<Color>.Enumerator em = uniqueColours.GetEnumerator();
+        while (em.MoveNext())
         {
-
+            Console.WriteLine(em.Current);
+            //Specified sample resolution to 4
+            Line tempLine = new Line(imageBitmap, em.Current, 4);
+            lineList.Add(tempLine);
         }
     }
 
@@ -39,10 +48,11 @@ class LineImage
         return imageBitmap;
     }
 
-    private int DetectColours(Bitmap lineImage)
+    private HashSet<Color> DetectColours(Bitmap lineImage)
     {
         //hash list of colours
         HashSet<Color> colours = new HashSet<Color>();
+        Color background = Color.FromArgb(255, 255, 255, 255);
         //Need to store central points
         for (int i = 0; i < 1024; i++)
         {
@@ -50,10 +60,37 @@ class LineImage
             for (int j = 0; j < 1024; j++)
             {
                 //get the colour of the pixel
-                colours.Add(lineImage.GetPixel(i, j));
-                Console.WriteLine(lineImage.GetPixel(i, j));
+                Color thisColour = lineImage.GetPixel(i, j);
+                if (thisColour != background)
+                {
+                    colours.Add(thisColour);
+                }
             }
         }
-        return colours.Count;
+        return colours;
     }
+
+    public void SaveLine()
+    {
+        Bitmap a = new Bitmap(1024, 1024);
+        for (int i = 0; i < 1024; i++)
+        {
+            for (int j = 0; j < 1024; j++)
+            {
+                a.SetPixel(i, j, Color.FromArgb(255, 255, 255, 255));
+            }
+        }
+        //This iss specific to the first line, when dealing with multiple lines, this will need to be more robust
+        int[] thisLine = lineList[0].getFullLine();
+        for (int i = 0; i < 1024; i++)
+        {
+            int location = thisLine[i];
+            if (location > -1)
+            {
+                a.SetPixel(i, location, lineList[0].lineColour);
+            }
+        }
+        a.Save(".\\image.png");
+    }
+
 }

@@ -24,7 +24,7 @@ namespace LineSmoothing
              */
             int x = 1024;
             int y = 1024;
-            Bitmap img = (Bitmap)Image.FromFile(".\\Lines\\LineTest1.png");
+            Bitmap img = (Bitmap)Image.FromFile(".\\Lines\\LineTest3.png");
             
             //using this approach our does not have to be of a fixed size, we can find dimensions and store them and then use that for scaling appropraitely
             //currently this is fixed
@@ -36,7 +36,9 @@ namespace LineSmoothing
             //We should start by taking the image and an image is made up of a non-descript number of lines, defined by the colour count, which should be a
             //part of the LineImage class
             //ColourCount is added to the LineImage class - but this doesn't behave correctly unless we have a fixed colour
-            Line thisLine = new Line(aLineImage.LineImageBitmap);
+
+            //save the new line
+            aLineImage.SaveLine();
         }
     }
 }
