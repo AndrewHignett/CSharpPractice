@@ -70,6 +70,7 @@ class LineImage
         return colours;
     }
 
+    //save line image for testing purposes to the root of the file location
     public void SaveLine()
     {
         Bitmap a = new Bitmap(1024, 1024);

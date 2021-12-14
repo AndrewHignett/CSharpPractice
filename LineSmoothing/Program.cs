@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Drawing;
 using System.IO;
+using System.Windows.Forms;
 
 
 namespace LineSmoothing
@@ -24,6 +25,9 @@ namespace LineSmoothing
              */
             int x = 1024;
             int y = 1024;
+
+            
+
             Bitmap img = (Bitmap)Image.FromFile(".\\Lines\\LineTest3.png");
             
             //using this approach our does not have to be of a fixed size, we can find dimensions and store them and then use that for scaling appropraitely
@@ -39,6 +43,9 @@ namespace LineSmoothing
 
             //save the new line
             aLineImage.SaveLine();
+
+            //test running GUI
+            Application.Run(new DrawLine());
         }
     }
 }
