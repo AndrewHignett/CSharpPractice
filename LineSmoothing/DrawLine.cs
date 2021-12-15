@@ -18,22 +18,21 @@ namespace LineSmoothing
         int y = -1;
         bool moving = false;
         Pen pen;
+        int thisColour = 0;
+        Color[] colours = {Color.Black, Color.Red, Color.Green, Color.Blue, Color.Cyan, Color.Magenta, Color.Yellow };
 
         public DrawLine()
         {
             InitializeComponent();
             g = panel1.CreateGraphics();
-            pen = new Pen(Color.Black, 10);
+            pen = new Pen(colours[thisColour], 10);
             pen.StartCap = LineCap.Round;
             pen.EndCap = LineCap.Round;
             pen.LineJoin = LineJoin.Round;
             //We want to be able to change the colour on each redraw of a line
             //Our lines can currently draw only from left to right - this is intentional
-        }
-
-        private void panel1_Click(object sender, EventArgs e)
-        {
-
+            //This would make the pen unuseable
+            //pen.Dispose()
         }
 
         private void panel1_MouseDown(object sender, MouseEventArgs e)
@@ -49,6 +48,11 @@ namespace LineSmoothing
         private void panel1_MouseUp(object sender, MouseEventArgs e)
         {
             moving = false;
+            thisColour++;
+            if (thisColour < colours.Length)
+            {
+                pen.Color = colours[thisColour];
+            }
             x = -1;
             y = -1;
         }
@@ -57,13 +61,12 @@ namespace LineSmoothing
         {
             if (moving && x != -1 && y != -1)
             {
-                if (e.X > x)
+                if (e.X > x && thisColour < colours.Length)
                 {
                     g.DrawLine(pen, new Point(x, y), e.Location);
                     x = e.X;
                     y = e.Y;
                 }
-               
             }
         }
     }
