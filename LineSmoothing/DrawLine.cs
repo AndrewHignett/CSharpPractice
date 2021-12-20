@@ -69,5 +69,24 @@ namespace LineSmoothing
                 }
             }
         }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            //these should get dimensionns from the panel instead rather than from here
+            Bitmap img = DrawControlToBitmap(panel1);
+            img.Save(".\\Lines\\temp\\LineTemp.png");
+            LineImage aLineImage = new LineImage(panel1.Width, panel1.Height, img);
+            aLineImage.SaveLine();
+        }
+
+        //Generalised method for saving images of particular parts of the window
+        private Bitmap DrawControlToBitmap(Control control)
+        {
+            Bitmap bitmap = new Bitmap(control.Width, control.Height);
+            Graphics graphics = Graphics.FromImage(bitmap);
+            Rectangle rect = control.RectangleToScreen(control.ClientRectangle);
+            graphics.CopyFromScreen(rect.Location, Point.Empty, control.Size);
+            return bitmap;
+        }
     }
 }

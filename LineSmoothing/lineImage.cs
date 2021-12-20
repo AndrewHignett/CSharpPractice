@@ -81,17 +81,21 @@ class LineImage
                 a.SetPixel(i, j, Color.FromArgb(255, 255, 255, 255));
             }
         }
-        //This iss specific to the first line, when dealing with multiple lines, this will need to be more robust
-        int[] thisLine = lineList[0].getFullLine();
-        for (int i = 0; i < 1024; i++)
+        //iterate through each line saving each pixel
+        foreach (Line line in lineList)
         {
-            int location = thisLine[i];
-            if (location > -1)
+            int[] thisLine = line.getFullLine();
+            for (int i = 0; i < 1024; i++)
             {
-                a.SetPixel(i, location, lineList[0].lineColour);
+                int location = thisLine[i];
+                //if uses the sample resolution hard coded, this is not good
+                if ((location > -1)&(i%4 == 0))
+                {
+                    a.SetPixel(i, location, line.lineColour);
+                }
             }
         }
-        a.Save(".\\image.png");
+        a.Save(".\\Lines\\temp\\image.png");
     }
 
 }

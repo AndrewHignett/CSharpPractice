@@ -23,16 +23,16 @@ namespace LineSmoothing
              * smooth line
              * output smoothed line
              */
-            int x = 1024;
-            int y = 1024;
+            //int x = 1024;
+            //int y = 1024;
 
             
 
-            Bitmap img = (Bitmap)Image.FromFile(".\\Lines\\LineTest3.png");
+            //Bitmap img = (Bitmap)Image.FromFile(".\\Lines\\LineTest6.png");
             
             //using this approach our does not have to be of a fixed size, we can find dimensions and store them and then use that for scaling appropraitely
             //currently this is fixed
-            LineImage aLineImage = new LineImage(x, y, img);
+            //LineImage aLineImage = new LineImage(x, y, img);
             //Is there any beefit to having this as a class? - it certainly keeps code here clean, and allows us to have functions that edit the object to
             //be functions part of that object's class
 
@@ -42,7 +42,7 @@ namespace LineSmoothing
             //ColourCount is added to the LineImage class - but this doesn't behave correctly unless we have a fixed colour
 
             //save the new line
-            aLineImage.SaveLine();
+            //aLineImage.SaveLine();
 
             //test running GUI
             Application.Run(new DrawLine());
