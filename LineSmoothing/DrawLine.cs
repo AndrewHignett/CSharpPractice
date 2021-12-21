@@ -20,12 +20,13 @@ namespace LineSmoothing
         Pen pen;
         int thisColour = 0;
         Color[] colours = {Color.Black, Color.Red, Color.Green, Color.Blue, Color.Cyan, Color.Magenta, Color.Yellow };
+        int brushWidth = 10;
 
         public DrawLine()
         {
             InitializeComponent();
             g = panel1.CreateGraphics();
-            pen = new Pen(colours[thisColour], 10);
+            pen = new Pen(colours[thisColour], brushWidth);
             pen.StartCap = LineCap.Round;
             pen.EndCap = LineCap.Round;
             pen.LineJoin = LineJoin.Round;

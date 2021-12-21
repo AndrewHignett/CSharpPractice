@@ -4,6 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Drawing;
+//imagine can be removed after making the background
+using System.Drawing.Imaging;
 using System.IO;
 using System.Windows.Forms;
 
@@ -23,13 +25,25 @@ namespace LineSmoothing
              * smooth line
              * output smoothed line
              */
-            //int x = 1024;
-            //int y = 1024;
+            int x = 1024;
+            int y = 1024;
+            Bitmap image = new Bitmap(x, y, PixelFormat.Format32bppArgb);
+            Color[,] test = new Color[x, y];
+            for (int i = 0; i < x; i++)
+            {
+                for (int j = 0; j < y; j++)
+                {
+                    if (j%64 <= 1)
+                    {
+                        image.SetPixel(i, j, Color.FromArgb(255, 0, 255, 0));
+                    }
+                }
+            }
+            //image.Save(".\\Lines\\temp\\test.png");
 
-            
 
             //Bitmap img = (Bitmap)Image.FromFile(".\\Lines\\LineTest6.png");
-            
+
             //using this approach our does not have to be of a fixed size, we can find dimensions and store them and then use that for scaling appropraitely
             //currently this is fixed
             //LineImage aLineImage = new LineImage(x, y, img);
