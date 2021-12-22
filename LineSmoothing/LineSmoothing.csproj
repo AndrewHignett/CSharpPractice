@@ -49,6 +49,7 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Keys.cs" />
     <Compile Include="DrawLine.cs">
       <SubType>Form</SubType>
     </Compile>

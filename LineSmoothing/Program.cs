@@ -54,10 +54,6 @@ namespace LineSmoothing
             //We should start by taking the image and an image is made up of a non-descript number of lines, defined by the colour count, which should be a
             //part of the LineImage class
             //ColourCount is added to the LineImage class - but this doesn't behave correctly unless we have a fixed colour
-
-            //save the new line
-            //aLineImage.SaveLine();
-
             //test running GUI
             Application.Run(new DrawLine());
         }
