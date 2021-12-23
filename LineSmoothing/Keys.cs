@@ -12,11 +12,7 @@ public class Keys
     }
     //Inclusion of notes based on the keys
     //C, C#, D, D#, E, F, F#, G, G#, A, A#, B
-    public static bool[,] Notes
-    {
-        get
-        {
-            return new bool[,] 
+    private static bool[,] Notes = new bool[,] 
             {
                 { true, false, true, false, true, true, false, true, false, true, false, true}, //C
                 { false, true, false, true, false, true, true, false, true, false, true, true}, //C#
@@ -34,8 +30,6 @@ public class Keys
                 { false, true, false, true, true, false, true, false, true, false, true, true}, //B
                 { false, true, false, true, true, false, true, false, true, false, true, true}  //Cb
             };
-        }
-    }
 
     private string key;
     public bool[] thisNotes = new bool[12];

@@ -77,6 +77,15 @@ namespace LineSmoothing
             Bitmap img = DrawControlToBitmap(panel1);
             img.Save(".\\Lines\\temp\\LineTemp.png");
             LineImage aLineImage = new LineImage(panel1.Width, panel1.Height, img);
+            
+            //fixed key to C for now
+            foreach (Line thisLine in aLineImage.lineList)
+            {
+                PitchShifting a = new PitchShifting(thisLine.line, "C");
+                a.shiftToNotes();
+                //for the sake of testing, we can assign this back to the line and then save
+                aLineImage.lineList[0].line = a.line;
+            }
             aLineImage.SaveLine();
         }
 

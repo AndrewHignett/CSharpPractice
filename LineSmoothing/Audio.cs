@@ -22,37 +22,37 @@ public class Audio
 	}
 
     //Read in audio file
-    private ReadFile()
+    private void ReadFile()
     {
 
     }
 
     //Shift pitch of the entire sample
-    public PitchShift()
+    public void PitchShift()
     {
 
     }
 
     //Shift pitch of subsample
-    private SubSamplePitchShift()
+    private void SubSamplePitchShift()
     {
         //detect the pitch between samples
     }
 
     //this gives us a starting point before shifting pitch
-    private DetectPitch()
+    private void DetectPitch()
     {
         
     }
 
     //Resample the waves in use in order to ensure it is of the sample length and sample count as the input waves
-    private Resample()
+    private void Resample()
     {
 
     }
 
     //Save the edited .wav file to a file, under a new file lane
-    private Save()
+    private void Save()
     {
 
     }
