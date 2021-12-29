@@ -1,4 +1,6 @@
 ﻿using System;
+using NAudio;
+using NAudio.Wave;
 
 //Storing the audio class
 //This should contain all functions that read and modify the sound file that we're using
@@ -24,7 +26,10 @@ public class Audio
     //Read in audio file
     private void ReadFile()
     {
-
+        //rough plan for how to read an audiofile using Naudio
+        var inPath = @"*\SoundFiles\keysTest.wav";
+        var reader = new AudioFileReader(inPath);
+        float[] buffer = new float[reader.WaveFormat.SampleRate];
     }
 
     //Shift pitch of the entire sample
