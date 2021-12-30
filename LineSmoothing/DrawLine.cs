@@ -87,6 +87,9 @@ namespace LineSmoothing
                 aLineImage.lineList[0].line = a.line;
             }
             aLineImage.SaveLine();
+
+            //testing
+            Audio testAudio = new Audio(".\\SoundFiles\\keysTest.wav");
         }
 
         //Generalised method for saving images of particular parts of the window

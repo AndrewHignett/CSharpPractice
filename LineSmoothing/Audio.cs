@@ -1,6 +1,7 @@
 ﻿using System;
 using NAudio;
 using NAudio.Wave;
+using NAudio.Wave.SampleProviders;
 
 //Storing the audio class
 //This should contain all functions that read and modify the sound file that we're using
@@ -20,16 +21,39 @@ public class Audio
 	{
         //dealing with multiple filetypes should be done using abstract classes
         this.filePath = filePath;
-
+        ReadFile(filePath);
 	}
 
     //Read in audio file
-    private void ReadFile()
+    private void ReadFile(string filePath)
     {
         //rough plan for how to read an audiofile using Naudio
-        var inPath = @"*\SoundFiles\keysTest.wav";
+        var inPath = @".\SoundFiles\keysTest.wav";
         var reader = new AudioFileReader(inPath);
         float[] buffer = new float[reader.WaveFormat.SampleRate];
+        foreach (float buf in buffer)
+        {
+            //read into buffer
+            Console.WriteLine(reader.WaveFormat.SampleRate);
+        }
+        //convert from stero to mono, if necessary
+        /*
+        using (var inputReader = new AudioFileReader(inPath))
+        {
+            // convert our stereo ISampleProvider to mono
+            var mono = new StereoToMonoSampleProvider(inputReader);
+            stereo.LeftVolume = 0.0f; // discard the left channel
+            stereo.RightVolume = 1.0f; // keep the right channel
+
+            // can either use this for playback:
+            myOutputDevice.Init(mono);
+            myOutputDevice.Play();
+            // ...
+
+            // ... OR ... could write the mono audio out to a WAV file
+            WaveFileWriter.CreateWaveFile16(outputFilePath, mono);
+        }
+        */
     }
 
     //Shift pitch of the entire sample
