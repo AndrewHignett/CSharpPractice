@@ -89,7 +89,7 @@ class LineImage
             {
                 int location = thisLine[i];
                 //if uses the sample resolution hard coded, this is not good
-                if ((location > -1)&(i%4 == 0))
+                if ((location > -1)&(i%4 == 0)&(location < 1024))
                 {
                     a.SetPixel(i, location, line.lineColour);
                 }

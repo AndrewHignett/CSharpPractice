@@ -13,14 +13,16 @@ namespace LineSmoothing
 {
     public partial class DrawLine : Form
     {
-        Graphics g;
-        int x = -1;
-        int y = -1;
-        bool moving = false;
-        Pen pen;
-        int thisColour = 0;
-        Color[] colours = {Color.Black, Color.Red, Color.Green, Color.Blue, Color.Cyan, Color.Magenta, Color.Yellow };
-        int brushWidth = 10;
+        private Graphics g;
+        private int x = -1;
+        private int y = -1;
+        private bool moving = false;
+        private Pen pen;
+        private int thisColour = 0;
+        private Color[] colours = {Color.Black, Color.Red, Color.Green, Color.Blue, Color.Cyan, Color.Magenta, Color.Yellow };
+        private int brushWidth = 10;
+        private LineImage currentLine;
+        private String thisKey;
 
         public DrawLine()
         {
@@ -32,8 +34,11 @@ namespace LineSmoothing
             pen.LineJoin = LineJoin.Round;
             //We want to be able to change the colour on each redraw of a line
             //Our lines can currently draw only from left to right - this is intentional
-            //This would make the pen unuseable
-            //pen.Dispose()
+            foreach (String key in Keys.TheKeys)
+            {
+                comboBox1.Items.Add(key);
+                comboBox1.Text = key;
+            }
         }
 
         private void panel1_MouseDown(object sender, MouseEventArgs e)
@@ -76,17 +81,19 @@ namespace LineSmoothing
             //these should get dimensionns from the panel instead rather than from here
             Bitmap img = DrawControlToBitmap(panel1);
             img.Save(".\\Lines\\temp\\LineTemp.png");
-            LineImage aLineImage = new LineImage(panel1.Width, panel1.Height, img);
-            
-            //fixed key to C for now
-            foreach (Line thisLine in aLineImage.lineList)
+            //LineImage aLineImage = new LineImage(panel1.Width, panel1.Height, img);
+            currentLine = new LineImage(panel1.Width, panel1.Height, img);
+
+            //Pick key based on what is selected by the user
+            thisKey = comboBox1.Text;
+            foreach (Line thisLine in currentLine.lineList)
             {
-                PitchShifting a = new PitchShifting(thisLine.line, "C");
+                PitchShifting a = new PitchShifting(thisLine.line, thisKey);
                 a.shiftToNotes();
                 //for the sake of testing, we can assign this back to the line and then save
-                aLineImage.lineList[0].line = a.line;
+                currentLine.lineList[0].line = a.line;
             }
-            aLineImage.SaveLine();
+            currentLine.SaveLine();
 
             //testing
             Audio testAudio = new Audio(".\\SoundFiles\\keysTest.wav");
@@ -100,6 +107,19 @@ namespace LineSmoothing
             Rectangle rect = control.RectangleToScreen(control.ClientRectangle);
             graphics.CopyFromScreen(rect.Location, Point.Empty, control.Size);
             return bitmap;
+        }
+
+        //SQL Server 2017 dev edition going to be used for setting up a db
+        //int PK
+        //string image file name
+        //string key
+        //int line count
+        private void button2_Click(object sender, EventArgs e)
+        {
+            int pk = 0; //placeholder, this should be done with a query then incrementing
+            string imageFileName = ""; //placeholder
+            string key = thisKey;
+            int lineCount = currentLine.uniqueColours.Count();
         }
     }
 }
